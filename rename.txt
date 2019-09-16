@@ -1,0 +1,23 @@
+#!/bin/bash
+cd f:/作业  #进入指定文件夹
+num=0
+for file in ./* #遍历当前文件夹的文件
+do
+	num=`expr $num + 1` #变量自增
+	if test -f $flie #判断是否是文件类型
+	then
+		fileName=`basename  $file` #获取文件的完整文件名
+		fileSize=$((`du --max-depth=1 ${fileName}|awk '{print $1}'`))  #获取文件的大小
+		if [ $fileSize -eq "0" ] #判断文件名是否为空
+		then 
+			rm -f $fileName        #删除文件
+		else
+			#newName="$num.${fileName##*.}"  #名称拼接后缀
+			mv $fileName "$num.${fileName##*.}" #重命名
+		fi
+	fi
+done
+
+			
+		
+		
